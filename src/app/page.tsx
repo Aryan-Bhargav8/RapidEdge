@@ -200,14 +200,16 @@ export default function Home() {
                         <div className="w-[60px] h-[2px] bg-white mb-2"/>
                         <h1 className="font-bold text-white">{service.title}</h1>
                         </div>
-                        <p className="text-gray-300 text-sm max-w-[280px]">{service.desc}</p>
+                        <p className="text-gray-300 text-sm max-w-[280px]">{service.desc.replace("'", "&apos;")}</p>
 
                       </div>
                       {/* Image */}
                       <div className="flex-1 flex items-center mt-6 -ml-[5%] w-[90%]">
-                        <img
+                        <Image
                           src={service.icon}
                           alt={service.title}
+                          width={400}
+                          height={200}
                           className="object-cover w-full h-full"
                         />
                       </div>
@@ -216,17 +218,21 @@ export default function Home() {
                     <>
                       {/* Image */}
                       <div className="flex-1 flex items-center mb-6 -ml-[5%] w-[90%]">
-                        <img
+                        <Image
                           src={service.icon}
                           alt={service.title}
+                          width={400}
+                          height={200}
                           className="object-cover w-full h-full"
                         />
                       </div>
                       {/* Text */}
                       <div className="flex flex-col gap-4 p-6">
+                        <div className="flex items-center gap-4">
                         <div className="w-[60px] h-[2px] bg-white mb-2"/>
-                        <h1 className="font-bold text-white">{service.title}</h1>
-                        <p className="text-gray-300 text-sm">{service.desc}</p>
+                        <h1 className="font-bold text-white text-xl">{service.title}</h1>
+                        </div>
+                        <p className="text-gray-300 text-sm">{service.desc.replace("'", "&apos;")}</p>
                       </div>
                     </>
                   )}
