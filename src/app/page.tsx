@@ -1,13 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from 'next/image';
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showAllServices, setShowAllServices] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+  const services = [
+    { title: " Custom Брандинг ", 
+      desc: "Пълно изграждане на бранд идентичност от нулата, включително лого и визуални материали.",
+      icon: "/assets/images/cards images/branding_imgae.png"
+    },
+    { title: "Брандинг", 
+      desc: "Обновяване на съществуващата идентичност на бизнеса с нови лого, визуални елементи и стратегия.",
+      icon: "/assets/images/cards images/rebranding_image.png"
+    },
+    { title: "Custom Уеб / Мобилна разработка", 
+      desc: "Създаване на персонализирани уебсайтове и мобилни приложения според вашите нужди.",
+      icon: "/assets/images/cards images/web_app_image.png"
+    },
+    { title: "SEO Оптимизация", 
+      desc: " Подобряване на видимостта на уебсайта в търсачките чрез оптимизация на съдържание и линк билдинг.",
+      icon: "/assets/images/cards images/seo_image.png"
+    },
+    { title: " Дигитален Маркетинг", 
+      desc: " Управление на платени реклами в социални мрежи и Google за повишаване на ангажираността и продажбите.",
+      icon: "/assets/images/cards images/digital_marketing_image.png"
+    },
+    { title: "Органично Съдържание", 
+      desc: " Създаване и управление на неплатени публикации в социалните медии за укрепване на връзката с аудиторията.",
+      icon: "/assets/images/cards images/organic_marketing_image.png"
+    },
+  ];
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (!mobile) {
+        setShowAllServices(false); // Reset when switching to desktop
+      }
+    };
+    handleResize(); // Set initial value
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <main className="flex flex-col bg-black text-white font-sans overflow-hidden">
+    <main className="flex flex-col bg-black text-white font-sans overflow-hidden -z-10">
       {/* Navbar */}
       <header
         className="flex justify-between items-center m-6 relative">
@@ -84,7 +125,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="bg-black relative p-6">
+      <section className="bg-gradient-to-r from-[#0639377d] to-black relative p-6">
         <Image
           src="/assets/icons/UI Icons/Backgorund Logo Stroke White.svg"
           alt="Background Stroke"
@@ -123,18 +164,91 @@ export default function Home() {
 
 
       {/* Services Section */}
-      <section className="bg-red-500 h-screen">
-        <div className="bg-white relative">
-          <Image
-            src="/assets/icons/UI Icons/Backgorund Logo Stroke White.svg"
-            alt="Gradient"
-            width={1000}
-            height={1000}
-            className="absolute left-[-10px] w-full h-auto object-contain invert"
-          />
-        </div>
+      <section className="w-full">
+        <div className="flex flex-col">
+          {/* White Section */}
+          <div className="bg-white py-8 px-6 pb-24 relative z-10">
+            <Image
+              src="/assets/icons/UI Icons/Backgorund Logo Stroke White.svg"
+              alt="Gradient"
+              width={1000}
+              height={1000}
+              className="absolute left-[-10px] w-full h-auto object-contain invert"
+            />
+            <div className="flex flex-col gap-4 relative z-10">
+              <h1 className="text-black text-xl font-[900] uppercase">Нашите услуги</h1>
+              <button className="bg-black text-white px-4 py-2 w-fit rounded-full">
+                Запитване
+              </button>
+            </div>
+          </div>
+          {/* Gradient Section */}
+          <div className="bg-gradient-to-l from-[#39061d99] to-black pt-0">
+            {/* Grid - moved up with negative margin, but not cut off */}
+            <div className="relative z-20 grid grid-cols-1 md:grid-cols-3 gap-4 -mt-16 px-4">
+              {(isMobile
+                ? (showAllServices ? services : services.slice(0, 3))
+                : services
+              ).map((service, idx) => (
+                <div key={idx} className="bg-[#18181b] rounded-3xl shadow-lg flex flex-col gap-4 relative overflow-hidden">
+                  {/* Even: Text first, then image. Odd: Image first, then text */}
+                  {idx % 2 === 0 ? (
+                    <>
+                      {/* Text */}
+                      <div className="flex flex-col gap-4 p-6">
+                        <div className="flex  items-center gap-4">
+                        <div className="w-[60px] h-[2px] bg-white mb-2"/>
+                        <h1 className="font-bold text-white">{service.title}</h1>
+                        </div>
+                        <p className="text-gray-300 text-sm max-w-[280px]">{service.desc}</p>
 
+                      </div>
+                      {/* Image */}
+                      <div className="flex-1 flex items-center mt-6 -ml-[5%] w-[90%]">
+                        <img
+                          src={service.icon}
+                          alt={service.title}
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {/* Image */}
+                      <div className="flex-1 flex items-center mb-6 -ml-[5%] w-[90%]">
+                        <img
+                          src={service.icon}
+                          alt={service.title}
+                          className="object-cover w-full h-full"
+                        />
+                      </div>
+                      {/* Text */}
+                      <div className="flex flex-col gap-4 p-6">
+                        <div className="w-[60px] h-[2px] bg-white mb-2"/>
+                        <h1 className="font-bold text-white">{service.title}</h1>
+                        <p className="text-gray-300 text-sm">{service.desc}</p>
+                      </div>
+                    </>
+                  )}
+                </div>
+              ))}
+            </div>
+            {/* Show More button only on mobile and only if not all are shown */}
+            {!showAllServices && isMobile && (
+              <div className="bg-gradient-to-t from-black via-black/50 via-65% to-transparent -mt-16 h-[60px] z-50 relative w-full">
+                <button
+                className="mt-4 mx-auto block md:hidden text-white underline"
+                onClick={() => setShowAllServices(true)}
+              >
+                 Виж всички услуги 
+              </button>
+              </div>
+            )}
+          </div>
+        </div>
       </section>
+
+
 
       {/* Work Section */}
       <section className="relative overflow-hidden">
@@ -244,7 +358,7 @@ export default function Home() {
                     height={10}
                   />
                   <h3 className="text-white font-bold text-xl leading-tight">Подбор на най- <br />
-                  добрите идеи</h3>
+                    добрите идеи</h3>
 
                 </div>
                 <p className="text-gray-300 text-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt </p>
@@ -278,7 +392,7 @@ export default function Home() {
                     height={10}
                   />
                   <h3 className="text-white font-bold text-xl leading-tight">Прототипиране<br />
-                  и тестове</h3>
+                    и тестове</h3>
 
                 </div>
                 <p className="text-gray-300 text-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt </p>
@@ -288,7 +402,7 @@ export default function Home() {
             {/* work5 */}
             <div className="flex gap-4 justify-center items-center">
 
-                <div className="relative w-[50px] h-[20px]">
+              <div className="relative w-[50px] h-[20px]">
                 <Image
                   src="/assets/icons/UI Icons/Dot.svg"
                   alt="Define"
@@ -296,8 +410,8 @@ export default function Home() {
                   height={10}
                   className="absolute -top-15"
                 />
-                </div>
-                {/* <Image
+              </div>
+              {/* <Image
                   src="/assets/icons/UI Icons/Line.svg"
                   alt="Define"
                   width={4}
@@ -305,7 +419,7 @@ export default function Home() {
                   className="w-[30px] h-[140px]"
                 /> */}
 
-    
+
               <div className="flex flex-col justify-items-stretch gap-7">
                 <div className="flex gap-4">
                   <Image
@@ -315,7 +429,7 @@ export default function Home() {
                     height={10}
                   />
                   <h3 className="text-white font-bold text-xl leading-tight">Реализация и <br />
-                  финален преглед</h3>
+                    финален преглед</h3>
 
                 </div>
                 <p className="text-gray-300 text-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt </p>
