@@ -125,7 +125,7 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="bg-gradient-to-r from-[#0639377d] to-black relative p-6">
+      <section className="bg-gradient-to-r from-[#0639377d] to-black relative p-6 z-30">
         <Image
           src="/assets/icons/UI Icons/Backgorund Logo Stroke White.svg"
           alt="Background Stroke"
@@ -153,7 +153,7 @@ export default function Home() {
           alt="Plant"
           width={600}
           height={700}
-          className="absolute right-[-180px] bottom-[-90px] w-[500px] md:w-[400px] lg:w-[600px] h-auto object-contain "
+          className="absolute right-[-180px] bottom-[-90px] w-[500px] md:w-[400px] lg:w-[600px] h-auto object-contain z-30 pointer-events-none select-none"
         />
       </section>
 
@@ -164,7 +164,7 @@ export default function Home() {
 
 
       {/* Services Section */}
-      <section className="w-full">
+      <section className="w-full relative z-10">
         <div className="flex flex-col">
           {/* White Section */}
           <div className="bg-white py-8 px-6 pb-24 relative z-10">
