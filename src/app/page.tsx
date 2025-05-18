@@ -200,7 +200,7 @@ export default function Home() {
                         <div className="w-[60px] h-[2px] bg-white mb-2"/>
                         <h1 className="font-bold text-white">{service.title}</h1>
                         </div>
-                        <p className="text-gray-300 text-sm max-w-[280px]">{service.desc.replace("'", "&apos;")}</p>
+                        <p className="text-gray-300 text-sm max-w-[280px]">{service.desc}</p>
 
                       </div>
                       {/* Image */}
@@ -232,7 +232,7 @@ export default function Home() {
                         <div className="w-[60px] h-[2px] bg-white mb-2"/>
                         <h1 className="font-bold text-white text-xl">{service.title}</h1>
                         </div>
-                        <p className="text-gray-300 text-sm">{service.desc.replace("'", "&apos;")}</p>
+                        <p className="text-gray-300 text-sm">{service.desc}</p>
                       </div>
                     </>
                   )}
@@ -615,7 +615,7 @@ export default function Home() {
             height={100}
             className="w-[70%] h-auto"
           />
-          <p className="text-[12px]">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
+          <p className="text-[12px]">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry&apos;s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. </p>
         </div>
 
         <div className="flex flex-col gap-6">
